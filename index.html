@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeAlpha URL Shortener</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔗 Smart URL Shortener</h1>
+    <p class="subtitle">Transform long URLs into short, shareable links instantly.</p>
+
+    <form method="POST">
+
+        <input
+            type="url"
+            name="url"
+            placeholder="Enter Long URL"
+            value="{{ original_url if original_url else '' }}"
+            required>
+
+        <button type="submit">Shorten URL</button>
+
+    </form>
+
+    {% if short_url %}
+<div class="result">
+    <h3>✅ Your Short Link is Ready!</h3>
+
+    <a href="{{ short_url }}" target="_blank" class="short-link">
+        {{ short_url }}
+    </a>
+
+    <br><br>
+
+    <button type="button" class="copy-btn" onclick="copyURL()">
+        📋 Copy Short URL
+    </button>
+</div>
+
+<script>
+function copyURL() {
+    navigator.clipboard.writeText("{{ short_url }}");
+    alert("Short URL copied!");
+}
+</script>
+{% endif %}
+
+</div>
+
+</body>
+</html>
